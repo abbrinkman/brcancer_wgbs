@@ -99,6 +99,9 @@ m1 <- m1[complete.cases(m1),]
 hc <- hclust(as.dist(1-cor(m1)), method="ward.D")
 d6$patient.hc <- factor(d6$patient, levels=hc$labels[hc$order])
 
+# save this clustering for the lineplots of more zoomed in figures
+save(hc, file="tilemaps_PMDmeth_clustered_hclust.RData")
+
 # make the genome-wide tiled plot, clustered based on the clustering above
 p <- ggplot(d6, aes(pos, patient.hc)) +
   geom_tile(aes(colour=meth, fill=meth)) +
