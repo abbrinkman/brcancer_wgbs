@@ -41,8 +41,6 @@ bound.sums.ran<- apply(bound.count.ran, 1, sum)
 # save the bound.count and pmd.count tables for clustering on PMDs
 bound.count.gr <- tiles
 mcols(bound.count.gr) <- bound.count
-save(bound.count.gr, 
-    file=paste0("bound.count.gr_tile", tile.size, ".RData"))
 
 # plot histograms
 freqs <- 0:30
