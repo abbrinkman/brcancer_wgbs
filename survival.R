@@ -85,7 +85,7 @@ survivalFunc = function(DF, GROUPS, MAX_YRS) {
 }
 pdf(pdfname)
 par(mfrow=c(2,2))
-survivalFunc(svl, "cluster", 5)
+survivalFunc(svl, "cluster", 5) #### Supplemental Figure 6C ####
 survivalFunc(svl, "cluster", 10)
 survivalFunc(svl, "cluster", 25)
 dev.off()
