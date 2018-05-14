@@ -76,6 +76,7 @@ makeScreenshot <- function(CHR, START, END) {
       sizes=c(0.08, 0.03, 0.03, rep(0.6/length(methtracklist), length(methtracklist))), from = START, to = END)
   dev.off()
 } 
-makeScreenshot("chr11", 108046044, 110171456)
-makeScreenshot("chr10", 128808505, 131541178)
+makeScreenshot("chr11", 108046044, 110171456) #### Figure 1C ####
+makeScreenshot("chr10", 128808505, 131541178) #### Figure 1C ####
 
+# this code was also used for #### Supplemental Figure 5B ####
