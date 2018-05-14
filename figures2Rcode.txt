@@ -1,0 +1,44 @@
+Figure 1C    -->    line_plots_wgbs.txt.R
+Figure 1D    -->    wgbs_pca.txt.R
+Figure 2A    -->    pmd_fraction_of_genome.txt.R
+Figure 2B    -->    pmd_fraction_of_genome.txt.R
+Figure 2C    -->    pmd_boundaries.txt.R
+Figure 2D    -->    pmd_feature_average_profiles.txt.R
+Figure 2E    -->    gene_density_vs_pmd_frequency.txt.R
+Figure 2F    -->    expression_vs_pmd_frequency.txt.R
+Figure 2G    -->    mutations_vs_pmd_frequency_full_cohort.txt.R
+Figure 2G    -->    rearrangments_vs_pmd_frequency.txt.R
+Figure 2H    -->    cpg_meth_genomic_elements_in_out_PMDs.txt.R
+Figure 3A    -->    screenshot_cgi_in_pmds.txt.R
+Figure 3B    -->    cgi_methylation_levels_in_out_pmds.txt.R
+Figure 3C    -->    cgi_average_profiles.txt.R
+Figure 3D    -->    cgi_cimp.txt.R
+Figure 3E    -->    cgi_cimp.txt.R
+Figure 3F    -->    cgi_cimp_other_tumors.txt.R
+Figure 3G    -->    pmd_tsg_overlap_and_gene_expression.txt.R
+Figure 3H    -->    pmd_gene_expression_tcga.txt.R
+Figure 3I    -->    pmd_gene_expression_tcga.txt.R
+Figure 3J    -->    pmd_tsg_overlap_and_gene_expression.txt.R
+Figure 4A    -->    pmd_cgi_methylation.txt.R
+Figure 4B    -->    pmd_cgi_methylation.txt.R
+Figure 4C    -->    pmd_binary_clustering.txt.R
+Supplemental Figure 1C    -->    cnv_per_chromosome.txt.R
+Supplemental Figure 1D    -->    pmd_methylation_vs_dnmt_expression.txt.R
+Supplemental Figure 3A    -->    gene_density_vs_pmd_frequency.txt.R
+Supplemental Figure 3B    -->    expression_vs_pmd_frequency.txt.R
+Supplemental Figure 3C    -->    mutations_vs_pmd_frequency_wgbs_cohort.txt.R
+Supplemental Figure 3C    -->    rearrangments_vs_pmd_frequency.txt.R
+Supplemental Figure 4A    -->    pmd_tsg_overlap_and_gene_expression.txt.R
+Supplemental Figure 4B    -->    pmd_gene_expression_tcga.txt.R
+Supplemental Figure 4C    -->    cgi_count_in_out_pmd_union.txt.R
+Supplemental Figure 5A    -->    pmd_tsg_overlap_and_gene_expression.txt.R
+Supplemental Figure 5B    -->    line_plots_wgbs.txt.R
+Supplemental Figure 5C    -->    pmd_tsg_overlap_and_gene_expression.txt.R
+Supplemental Figure 5D    -->    pmd_gene_expression_tcga.txt.R
+Supplemental Figure 6A    -->    pmd_tsg_overlap_and_gene_expression.txt.R
+Supplemental Figure 6B    -->    line_plots_wgbs.txt.R
+Supplemental Figure 6C    -->    pmd_tsg_overlap_and_gene_expression.txt.R
+Supplemental Figure 7A    -->    pmd_cgi_methylation.txt.R
+Supplemental Figure 7B    -->    cgi_methylation_levels_in_out_pmds_other_cancers.txt.R
+Supplemental Table 2    -->    cgi_cimp.txt.R
+Supplemental Table 3    -->    pmd_tsg_overlap_and_gene_expression.txt.R
