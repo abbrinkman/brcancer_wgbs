@@ -122,7 +122,7 @@ p.sub <- ggplot(d2[d2$Type=="Sub",], aes(pmd.freq.bin, mut.Mb)) +
          ylab("mean mut/Mb") +
          xlab("PMD frequency") +
          ggtitle("Subst, 25 WGBS samples")
-ggsave(p.sub, file="boxplots_Sub_perMb_vs_PMDfreq_WGBS.pdf", width=4, height=2.8, scale=1) ##### Figure 2G #####
+ggsave(p.sub, file="boxplots_Sub_perMb_vs_PMDfreq_WGBS.pdf", width=4, height=2.8, scale=1) #### Supplemental Figure 3C ####
 
 p.ins <- ggplot(d2[d2$Type=="Ins",], aes(pmd.freq.bin, mut.Mb)) +
          geom_boxplot(aes(fill=pmd.freq.bin), outlier.shape=NA) +
@@ -134,7 +134,7 @@ p.ins <- ggplot(d2[d2$Type=="Ins",], aes(pmd.freq.bin, mut.Mb)) +
          ylab("mean mut/Mb") +
          xlab("PMD frequency") +
          ggtitle("Ins, 25 WGBS samples")
-ggsave(p.ins, file="boxplots_Ins_perMb_vs_PMDfreq_WGBS.pdf", width=4, height=2.8, scale=1) ##### Figure 2G #####
+ggsave(p.ins, file="boxplots_Ins_perMb_vs_PMDfreq_WGBS.pdf", width=4, height=2.8, scale=1) #### Supplemental Figure 3C ####
 
 p.del <- ggplot(d2[d2$Type=="Del",], aes(pmd.freq.bin, mut.Mb)) +
          geom_boxplot(aes(fill=pmd.freq.bin), outlier.shape=NA) +
@@ -146,7 +146,7 @@ p.del <- ggplot(d2[d2$Type=="Del",], aes(pmd.freq.bin, mut.Mb)) +
          ylab("mean mut/Mb") +
          xlab("PMD frequency") +
          ggtitle("Del, 25 WGBS samples")
-ggsave(p.del, file="boxplots_Del_perMb_vs_PMDfreq_WGBS.pdf", width=4, height=2.8, scale=1)# ##### Figure 2G #####
+ggsave(p.del, file="boxplots_Del_perMb_vs_PMDfreq_WGBS.pdf", width=4, height=2.8, scale=1) #### Supplemental Figure 3C ####
 
 p.complex <- ggplot(d2[d2$Type=="Complex",], aes(pmd.freq.bin, mut.Mb)) +
          geom_boxplot(aes(fill=pmd.freq.bin), outlier.shape=NA) +

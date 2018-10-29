@@ -49,7 +49,7 @@ p <- ggplot(d3, aes(pos, CN)) +
       panel.grid.major=element_blank(), panel.grid.minor=element_blank()) +
   xlab("") +
   ylab("mean CN (25 patients)")
-ggsave(p, file="scatterplots_CNcounts.pdf", height=3, width=10) ##### Supplemental Figure 1C #####
+ggsave(p, file="scatterplots_CNcounts.pdf", height=3, width=10) #### Supplemental Figure 1C ####
 
 # same for the PMDs, calculate PMD frequency per tile, all 30 patients
 tiles.pmd <- unlist(tileGenome(seqlengths=seqlengths(Hsapiens)[1:23], ntile=10000))

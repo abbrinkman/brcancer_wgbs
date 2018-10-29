@@ -160,7 +160,7 @@ p <- ggplot(d5[!is.na(d5$ER),], aes(PC1, PC2)) +
      scale_color_gradient(low="yellow", high="blue") +
      theme_classic() +
      theme(axis.text=element_text(color="black"))
-ggsave(p, file="PCA_WGBS_PC1_vs_PC2.pdf", width=3.5, height=2.5) ##### Figure 1D #####
+ggsave(p, file="PCA_WGBS_PC1_vs_PC2.pdf", width=3.5, height=2.5) #### Figure 1D ####
 
 
 

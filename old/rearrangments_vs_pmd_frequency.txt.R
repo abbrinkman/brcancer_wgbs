@@ -112,7 +112,7 @@ p1 <- ggplot(d3, aes(pmd.freq.bin, breakpoints.Mb)) +
          ylab("mean breakpoints/Mb") +
          xlab("PMD frequency") +
          ggtitle("all (544) samples")
-ggsave(p1, file="boxplots_breakpoints_perMb_vs_PMDfreq_all.pdf", width=4, height=2.8, scale=1) ##### Supplemental Figure 5B #####
+ggsave(p1, file="boxplots_breakpoints_perMb_vs_PMDfreq_all.pdf", width=4, height=2.8, scale=1) #### Figure 2G ####
 
 
 p2 <- ggplot(d4, aes(pmd.freq.bin, breakpoints.Mb)) +
@@ -125,7 +125,7 @@ p2 <- ggplot(d4, aes(pmd.freq.bin, breakpoints.Mb)) +
          ylab("mean breakpoints/Mb") +
          xlab("PMD frequency") +
          ggtitle("24 WGBS samples")
-ggsave(p2, file="boxplots_breakpoints_perMb_vs_PMDfreq_WGBS.pdf", width=4, height=2.8, scale=1) ##### Figure 2G #####
+ggsave(p2, file="boxplots_breakpoints_perMb_vs_PMDfreq_WGBS.pdf", width=4, height=2.8, scale=1) #### Supplemental Figure 3C ####
 
 
 ### statistics on the tile counts

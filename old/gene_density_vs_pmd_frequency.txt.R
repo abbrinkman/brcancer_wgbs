@@ -185,7 +185,7 @@ p2 <- ggplot(d2, aes(pmd.freq.bin, frac)) +
       ylab("relative gene fraction (bp/bp)") +
       xlab("PMD frequency") +
       ggtitle("RNA-seq annotation (ENSEMBL)")
-ggsave(p2, file="relative_gene_density_ENSEMBL_vs_PMDfrequencyBin.pdf", width=4, height=2.8, scale=1) ##### Figure 2E #####
+ggsave(p2, file="relative_gene_density_ENSEMBL_vs_PMDfrequencyBin.pdf", width=4, height=2.8, scale=1) #### Supplemental Figure 3A ####
 
 p3 <- ggplot(d3, aes(pmd.freq, frac)) +
       geom_bar(stat="identity", aes(fill=pmd.freq), color="black") +
@@ -326,7 +326,7 @@ p14 <- ggplot(d10, aes(pmd.freq.bin, frac)) +
       ylab("gene fraction") +
       xlab("PMD frequency") +
       ggtitle("RNA-seq annotation (ENSEMBL)")
-ggsave(p14, file="gene_fraction_ENSEMBL_vs_PMDfrequencyBin.pdf", width=4, height=2.8, scale=0.9) ##### Figure 2E #####
+ggsave(p14, file="gene_fraction_ENSEMBL_vs_PMDfrequencyBin.pdf", width=4, height=2.8, scale=0.9) #### Figure 2E ####
 
 p15 <- ggplot(d11, aes(pmd.freq, frac)) +
       geom_bar(stat="identity", aes(fill=pmd.freq), color="black") +

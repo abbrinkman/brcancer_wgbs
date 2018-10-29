@@ -105,7 +105,7 @@ p1 <- ggplot(d3, aes(PMD.frequency.bin, expression.log2)) +
       theme(panel.background=element_blank(), axis.text=element_text(color="black"), 
           axis.text.x=element_text(angle=45, hjust=1, vjust=1))
 ggsave(p1, file="boxplot_expression_gene-means_vs_PMDfreqBin_allPromoters.pdf", width=4, 
-    height=2.8, scale=1.1) ##### Figure 3I #####
+    height=2.8, scale=1.1) #### Figure 3H ####
 
 # is gene expression associated with PMD frequency?
 summary(lm(expression.log2 ~ as.numeric(PMD.frequency), data=d3))
@@ -212,7 +212,7 @@ p5.1 <- ggplot(d6.cgi.prom, aes(PMD.frequency.bin, log2.ratio.tumor.normal)) +
       theme(panel.background=element_blank(), axis.text=element_text(color="black"),
           axis.text.x=element_text(angle=45, hjust=1, vjust=1))
 ggsave(p5.1, file="boxplot_expression_mean-ratios_matched_vs_PMDfreqBin_CGIpromoters.pdf",
-     width=4, height=2.8, scale=1.1) ##### Figure 3J #####
+     width=4, height=2.8, scale=1.1) #### Figure 3I ####
 
 p5.2 <- ggplot(d6.noncgi.prom, aes(PMD.frequency.bin, log2.ratio.tumor.normal)) +
       geom_boxplot(outlier.shape=NA) +
@@ -221,7 +221,7 @@ p5.2 <- ggplot(d6.noncgi.prom, aes(PMD.frequency.bin, log2.ratio.tumor.normal)) 
       theme(panel.background=element_blank(), axis.text=element_text(color="black"),
           axis.text.x=element_text(angle=45, hjust=1, vjust=1))
 ggsave(p5.2, file="boxplot_expression_mean-ratios_matched_vs_PMDfreqBin_nonCGIpromoters.pdf",
-     width=4, height=2.8, scale=1.1) ##### Supplemental Figure 6B #####
+     width=4, height=2.8, scale=1.1) #### Supplemental Figure 4B ####
 
 
 
@@ -317,7 +317,7 @@ val.genes <- c( # these genes are depicted in Suppl. Fig. 5A
   "CXCL13",
   "AFP")
 
-pdf("validation_genes/boxplots_TSG_validation_genes_normal_vs_tumor_unmatched_matched.pdf") ##### Supplemental Figure 7D #####
+pdf("validation_genes/boxplots_TSG_validation_genes_normal_vs_tumor_unmatched_matched.pdf") #### Supplemental Figure 5D ####
 par(mfrow=c(3,4))
 for (i in val.genes) { message(i) ; try(boxplotNormalTumor(i)) ; try(boxplotNormalTumorMatched(i))}
 dev.off()

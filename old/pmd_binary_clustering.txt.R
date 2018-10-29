@@ -1,5 +1,6 @@
 library(GenomicRanges)
 library(BSgenome.Hsapiens.UCSC.hg19)
+library(ConsensusClusterPlus)
 library(rtracklayer)
 library(cluster)
 library(ggplot2)
@@ -11,51 +12,58 @@ library(grid)
 library(gridExtra)
 
 
-# get the hg19 genome
-hg19 <- BSgenome.Hsapiens.UCSC.hg19
-hg19 <- as.data.frame(seqlengths(hg19))
-colnames(hg19) <- "end"
-hg19$start <- 1
-hg19$chr <- rownames(hg19)
-hg19 <- makeGRangesFromDataFrame(hg19)
-hg19 <- hg19[!grepl("chrUn", seqnames(hg19))]
-hg19 <- hg19[!grepl("random", seqnames(hg19))]
-hg19 <- hg19[!grepl("hap", seqnames(hg19))]
-hg19 <- hg19[!grepl("chrM", seqnames(hg19))]
-hg19 <- hg19[!grepl("chrX", seqnames(hg19))]
-hg19 <- hg19[!grepl("chrY", seqnames(hg19))]
-
-# remove centromers from genome
-centro <- read.delim(pipe("cat ~/Datarepository/hg19_cytoBand.bed |grep -e acen -e gvar -e stalk"),
-    header=F, sep="\t")
-colnames(centro) <- c("chr","start","end","arm","type")
-centro <- makeGRangesFromDataFrame(centro, keep.extra.columns=T)
-hg19 <- setdiff(hg19, centro)
-
-# make the hg19 tiles
+# get hg19 tiles
 tile.size <- 5000 # basepairs
-tiles <- unlist(tile(hg19, width=tile.size))
+chr.lengths <- seqlengths(Hsapiens)
+chr.lengths <- chr.lengths[1:22]
+tiles <- tileGenome(chr.lengths, tilewidth=tile.size,
+        cut.last.tile.in.chrom=T)
 
+# get BASIS PMDs
+basis.files <- list.files(pattern="PMDs_PD[0-9]+a_noCent.bed$", path="~/BiSeq_BASIS/PMDs_all_samples/", full.names=T)
+basis.files <- basis.files[!grepl("PD9590", basis.files)]
+basis.files <- as.list(basis.files)
+names(basis.files) <- sapply(strsplit(basename(unlist(basis.files)), "_"), function(x) {x[2]})
 
-# get PMDs
-pmdmeth.select <- get(load("~/BiSeq_BASIS/PMDs_other_celltypes/pmdmeth.select.RData"))
+pmds.basis <- lapply(basis.files, function(x) {read.table(x, col.names=c("chr","start","end"))})
+pmds.basis <- lapply(pmds.basis, makeGRangesFromDataFrame)
 
-# select only the tumors for this
-pmdmeth.tumors <- pmdmeth.select[grep("^tumor_", names(pmdmeth.select))]
+# get TCGA PMDs
+pmds.tcga <- get(load("~/BiSeq_BASIS/PMDs_other_celltypes/tcga/tcga.pmds.RData"))
+
+# take out the one sample for which PMD calling was faulty
+pmds.tcga <- pmds.tcga[!names(pmds.tcga) %in% "BLCA_NIC1254A93_tumor"]
+
+# take out the normals
+pmds.tcga <- pmds.tcga[!grepl("normal", names(pmds.tcga))]
+
+# get lymphoma PMDs
+pmds.lymph <- get(load("~/BiSeq_BASIS/PMDs_other_celltypes/lymphoma/lymph.pmds.RData"))
+
+# take out the normal germinal centre B-cells from the lymphoma PMDs
+pmds.lymph <- pmds.lymph[-grep("GCB",names(pmds.lymph))]
+
+# remove the two lymphoma samples for which PMD calling was bad
+pmds.lymph <- pmds.lymph[!names(pmds.lymph) %in% c("FL_4158726", "FL_4159170")]
+
 
 # score whether a PMD completely overlaps a tile (1) or not (0)
-scorePMDs <- function(PMD_GR_LIST) { # LABEL can be used for cluster labelling later
+scorePMDs <- function(PMD_GR_LIST, LABEL) { # LABEL can be used for cluster labelling later
   for (i in names(PMD_GR_LIST)) {
     message(i)
     pmds <- PMD_GR_LIST[[i]]
     scores <- ifelse(countOverlaps(tiles, pmds, type="within") >= 1, 1 ,0)
-    pmd.scores@elementMetadata@listData[[i]] <- scores
+    pmd.scores@elementMetadata@listData[[paste0(LABEL, "_", i)]] <- scores
   }
   pmd.scores
 }
 
 pmd.scores <- tiles
-pmd.scores <- scorePMDs(pmdmeth.tumors)
+
+pmd.scores <- scorePMDs(pmds.basis, "basis")
+pmd.scores <- scorePMDs(pmds.tcga, "tcga")
+pmd.scores <- scorePMDs(pmds.lymph, "lymph")
+
 
 # create distance table from Jaccard index
 pmd.scores.jacc <- matrix(nc=ncol(mcols(pmd.scores)), nr=ncol(mcols(pmd.scores)))
@@ -68,10 +76,13 @@ for (r in 1:nrow(pmd.scores.jacc)) {
     pmd.scores.jacc[r,c] <- jacc
   }
 }
-load("~/BiSeq_BASIS/PMDs_other_celltypes/PMD_clustering/pmd.scores.jacc_1.RData")
 
 # hierarchical clustering
 hc1 <- hclust(as.dist(1-pmd.scores.jacc))
+
+# get the silhouette widths for this clustering
+sapply(2:5, function(X) {summary(silhouette(cutree(hc1, k=X), 1-pmd.scores.jacc))$avg.width})
+# [1] 0.2467066 0.1385606 0.1069243 0.1123475 -> 2 rather than 3 clusters
 
 # plot hierarchical clustering
 ddata <- dendro_data(hc1, type="rectangle")
@@ -94,19 +105,13 @@ dd <- dd + theme(axis.text.x = element_blank(),
 source("~/tools/BASIS_common_functions.txt.R")
 hc1.d <- data.frame("name"=hc1$labels[hc1$order])
 hc1.d$value <- rep(0, nrow(hc1.d))
-#hc1.d$type <- gsub("^PD.+","BRCA",sapply(strsplit(as.character(hc1.d$name), "_"), function(x) {x[2]}))
-hc1.d$type <- sapply(strsplit(sapply(strsplit(as.character(hc1.d$name), "_"), 
-    function(x) {x[3]}), "\\."), function(x) {x[1]})
+hc1.d$type <- gsub("^PD.+","BRCA",sapply(strsplit(as.character(hc1.d$name), "_"), function(x) {x[2]}))
 hc1.d$name <- factor(hc1.d$name, levels=as.character(hc1.d$name))
-#hc1.d$ER <- clinj$ER.FPKM[match(gsub("a$","", gsub("^basis_","",hc1.d$name)), clinj$sample_name)]
-hc1.d$ER <- clinj$ER.FPKM[match(gsub("a$","", gsub("^.+\\.","",hc1.d$name)), clinj$sample_name)]
-cluster.colors <- c(brewer.pal(12,"Paired"),  
-    c("darkblue", "black", "pink", "yellow", "grey", "magenta", "darkslategrey") )
-
+hc1.d$ER <- clinj$ER.FPKM[match(gsub("a$","", gsub("^basis_","",hc1.d$name)), clinj$sample_name)]
 p <- ggplot(data=hc1.d, aes(name, value))
 p <- p + geom_tile(aes(fill=type, colour=type))
-p <- p + scale_fill_manual(values=cluster.colors)
-p <- p + scale_colour_manual(values=cluster.colors)
+p <- p + scale_fill_manual(values=c(brewer.pal(9,"Set1"), c("darkblue", "black") ))
+p <- p + scale_colour_manual(values=c(brewer.pal(9,"Set1"), c("darkblue", "black") ))
 p <- p + theme_classic()
 
 p1 <- p + theme(axis.text.x = element_blank(),
@@ -142,7 +147,7 @@ p3 <- p3 + theme(axis.text.x = element_blank(),
                legend.position = "none",
                plot.margin=unit(c(-0.3,0.9,-0.3,1), "cm"))
 
-pdf("hclust_PMDs_other_celltypes_jaccard_withColors.pdf", onefile=T) ##### Figure 4B #####
+pdf("hclust_PMDs_other_celltypes_jaccard_withColors.pdf", onefile=T) #### Figure 4C ####
 n <- 30
 grid.arrange(dd,
              p1,
@@ -151,4 +156,5 @@ grid.arrange(dd,
              heights=c(0.2, rep(0.8/(n-1), n-1)))
 p2
 dev.off()
+
 

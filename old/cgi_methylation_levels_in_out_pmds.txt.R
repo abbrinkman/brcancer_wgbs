@@ -36,5 +36,5 @@ p1 <- ggplot(d1, aes(L1, proportion)) +
       theme_classic() +
       theme(axis.text=element_text(colour="black"), axis.ticks=element_line(colour="black"))
 ggsave(p1, 
-    file="barplot_proportion_of_CGImeth_absolute_in_out_PMDs.pdf", width=10, height=7, scale=0.6) ##### Figure 3B #####
+    file="barplot_proportion_of_CGImeth_absolute_in_out_PMDs.pdf", width=10, height=7, scale=0.6) #### Figure 3B ####
 

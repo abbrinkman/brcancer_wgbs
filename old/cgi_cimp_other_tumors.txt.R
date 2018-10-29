@@ -5,18 +5,18 @@ library(reshape2)
 library(betareg)
 library(gplots)
 
-pmds <- get(load("~/BiSeq_BASIS/PMDs_other_celltypes/pmdmeth.select.RData"))
-cgi <- get(load("~/BiSeq_BASIS/PMDs_other_celltypes/cgimeth.select.RData"))
+pmds <- c(get(load("~/BiSeq_BASIS/PMDs_all_samples/pmdmeth.tcga.RData")),
+    get(load("~/BiSeq_BASIS/PMDs_all_samples/pmdmeth.lymph.RData")),
+    get(load("~/BiSeq_BASIS/PMDs_all_samples/pmdmeth.basis.RData")))
+cgi <- c(get(load("~/BiSeq_BASIS/PMDs_all_samples/cgimeth.tcga.RData")),
+    get(load("~/BiSeq_BASIS/PMDs_all_samples/cgimeth.lymph.RData")),
+    get(load("~/BiSeq_BASIS/PMDs_all_samples/cgimeth.basis.RData")))
 
 pat <- intersect(names(pmds), names(cgi))
 pmds <- pmds[pat]
 cgi <- cgi[pat]
-
-pmds <- pmds[grep("^tumor", names(pmds))]
-cgi <- cgi[grep("^tumor", names(cgi))]
-
-names(pmds) <- sapply(strsplit(names(pmds), "_"), function(x) {x[3]})
-names(cgi) <- sapply(strsplit(names(cgi), "_"), function(x) {x[3]})
+names(pmds) <- make.unique(gsub("^PD\\d+a$","BASIS", gsub("_.+$","", names(pmds))), sep="_")
+names(cgi) <- make.unique(gsub("^PD\\d+a$","BASIS", gsub("_.+$","", names(cgi))), sep="_")
 
 pat <- intersect(names(pmds), names(cgi))
 pat <- as.list(pat)
@@ -38,8 +38,7 @@ d1 <- data.frame(
 colnames(d1) <- gsub("\\.$","", gsub(".0.01","",gsub("^X\\.+","cgi.", colnames(d1))))
 
 # What is the association between the number of CGIs inside PMDs and the number of hypermethylated CGIs?  
-getCIMPvalue_CGIinPMDs <- function(pd, hyper.min) { 
-  # hyper.min: minimal CGI methylation to call it 'hypermethylated'
+getCIMPvalue_CGIinPMDs <- function(pd, hyper.min) { # hyper.min: minimal CGI methylation to call it 'hypermethylated'
   cgi.hyper <- mcols(cgi[[pd]])[[1]] >= hyper.min
   cgi.pmd <- overlapsAny(cgi[[pd]], pmds[[pd]], type="within")
   ncgi.hyper <- mean(cgi.hyper, na.rm=T)
@@ -50,11 +49,12 @@ pat.cimp <- sapply(as.character(c(0.2, 0.25, 0.3, 0.4)), function(x) {
     as.data.frame(t(sapply(pat, getCIMPvalue_CGIinPMDs, as.numeric(x))))}, USE.NAMES=T, simplify=F)
 
 # Conclusion: when taking all tumors (different tissues) together, 
-# the trends are not as clear as with breast cancer (=single tissue), although associations are still significant (R2 only up to 0.28)
+# the trends are not as clear as with breast cancer (=single tissue), although associations are still
+# significant (R2 only up to 0.28)
 # Likely, with different tumors it's like comparing apples with oranges
 # So, split into groups of the same tumor:
 
-pat.cimp.l <- lapply(pat.cimp, function(x) {split(x, gsub("\\..+$","", rownames(x)))})
+pat.cimp.l <- lapply(pat.cimp, function(x) {split(x, gsub("_\\d+$","", rownames(x)))})
 
 plotCIMP_BetaReg <- function(df, hyper.min.cutoff, tumor.type) {
   plot(df$cimp ~ df$cgi.in.pmd, xlab=" fraction CGIs in PMDs",
@@ -94,13 +94,13 @@ pat.cimp.l.mdl$r2 <- as.numeric(as.character(pat.cimp.l.mdl$r2))
 pat.cimp.l.mdl$n <- as.numeric(as.character(pat.cimp.l.mdl$n))
 pat.cimp.l.mdl$tumor.type.n <- paste0(pat.cimp.l.mdl$tumor.type, " (n=", pat.cimp.l.mdl$n, ")")
 
-p0 <- ggplot(pat.cimp.l.mdl[pat.cimp.l.mdl$hyper.min.cutoff==0.3 & 
-	     pat.cimp.l.mdl$tumor.type != "GCB",], 
-             aes(jitter(r2), -log10(pval))) + 
+p0 <- ggplot(pat.cimp.l.mdl[pat.cimp.l.mdl$hyper.min.cutoff==0.3 & pat.cimp.l.mdl$tumor.type != "GCB",], 
+          aes(jitter(r2), -log10(pval))) + 
       geom_point(color="black", fill="blue", shape=21, size=3) + 
       geom_text_repel(aes(label=tumor.type.n), size=1) +
       theme_classic() +
       theme(axis.text=element_text(color="black"), axis.ticks=element_line(color="black")) +
       xlab("R2 (variation explained)") 
-ggsave(file="regressions_CIMP_vs_CGI-PMDs_perTumorType_statsPlot.pdf", width=7, height=7, scale=0.4) ##### Figure 3G #####
+ggsave(file="regressions_CIMP_vs_CGI-PMDs_perTumorType_statsPlot.pdf", width=7, height=7, scale=0.4) #### Figure 3F ####
+
 

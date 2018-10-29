@@ -58,7 +58,7 @@ fpkm$mean.expr.all <- apply(as.matrix(mcols(fpkm[,grep("^PD",colnames(mcols(fpkm
 # determine the standard deviation for each gene, in all samples from the RNA-seq cohort
 fpkm$stdev.all <- apply(as.matrix(mcols(fpkm[,grep("^PD",colnames(mcols(fpkm)))])), 1, sd, na.rm=T)
 
- ##### Figure 2F #####
+ #### Supplemental Figure 3B ####
 p1 <- ggplot( as.data.frame(mcols(fpkm)), aes(as.factor(pmd.freq.bin.wgbs), mean.expr.wgbs)) +
       geom_boxplot(outlier.shape=NA, aes(fill=pmd.freq.bin.wgbs)) +
       scale_fill_manual(values=colorpanel(length(unique(fpkm$pmd.freq.bin.wgbs)), "white", "red")) +
@@ -71,7 +71,7 @@ p1 <- ggplot( as.data.frame(mcols(fpkm)), aes(as.factor(pmd.freq.bin.wgbs), mean
       ggtitle("25 WGBS samples")
 ggsave(p1, file="mean_expression_vs_PMDfrequency_WGBS.pdf", width=4, height=2.8, scale=1)
 
- ##### Supplemental Figure 5A #####
+ #### Figure 2F ####
 p2 <- ggplot( as.data.frame(mcols(fpkm)), aes(as.factor(pmd.freq.bin), mean.expr.all)) +
       geom_boxplot(outlier.shape=NA, aes(fill=pmd.freq.bin)) +
       scale_fill_manual(values=colorpanel(length(unique(fpkm$pmd.freq.bin)), "white", "red")) +
@@ -84,7 +84,7 @@ p2 <- ggplot( as.data.frame(mcols(fpkm)), aes(as.factor(pmd.freq.bin), mean.expr
       ggtitle("all RNAseq_samples")
 ggsave(p2, file="mean_expression_vs_PMDfrequency_all.pdf", width=4, height=2.8, scale=1)
 
- ##### Figure 2F #####
+ #### Supplemental Figure 3B ####
 p3 <- ggplot( as.data.frame(mcols(fpkm)), aes(as.factor(pmd.freq.bin.wgbs), stdev.wgbs)) +
       geom_boxplot(outlier.shape=NA, aes(fill=pmd.freq.bin.wgbs)) +
       scale_fill_manual(values=colorpanel(length(unique(fpkm$pmd.freq.bin.wgbs)), "white", "red")) +
@@ -97,7 +97,7 @@ p3 <- ggplot( as.data.frame(mcols(fpkm)), aes(as.factor(pmd.freq.bin.wgbs), stde
       ggtitle("25 WGBS samples")
 ggsave(p3, file="stdev_expression_vs_PMDfrequency_WGBS.pdf", width=4, height=2.8, scale=1)
 
- ##### Supplemental Figure 5A #####
+ #### Figure 2F ####
 p4 <- ggplot( as.data.frame(mcols(fpkm)), aes(as.factor(pmd.freq.bin), stdev.all)) +
       geom_boxplot(outlier.shape=NA, aes(fill=pmd.freq.bin)) +
       scale_fill_manual(values=colorpanel(length(unique(fpkm$pmd.freq.bin)), "white", "red")) +

@@ -46,7 +46,6 @@ makeScreenshot <- function(CHR, START, END) {
 
   # use running median to smooth values
   runmed.k <- round((END-START)/5500, 0)
-  #runmed.k <- round((END-START)/25000, 0) # setting used for solo-WCGW (lower CpG density)
   runmed.k <- ifelse(runmed.k %% 2 == 0, runmed.k+1, runmed.k)
   smoothMethTrack <- function(NAME, BACK_COL) {
     meth.smooth <- meth.sel[,NAME]
@@ -77,10 +76,9 @@ makeScreenshot <- function(CHR, START, END) {
       sizes=c(0.08, 0.03, 0.03, rep(0.6/length(methtracklist), length(methtracklist))), from = START, to = END)
   dev.off()
 } 
-makeScreenshot("chr11", 108046044, 110171456) ##### Figure 1C #####
-makeScreenshot("chr10", 128808505, 131541178) ##### Figure 1C #####
+makeScreenshot("chr11", 108046044, 110171456) #### Figure 1C ####
+makeScreenshot("chr10", 128808505, 131541178) #### Figure 1C ####
 
-# this code was also used for ##### Supplemental Figure 3C #####
-# this code was also used for ##### Supplemental Figure 7B #####
-# this code was also used for ##### Supplemental Figure 8B #####
+# this code was also used for #### Supplemental Figure 5B ####
+# this code was also used for #### Supplemental Figure 6B ####
 

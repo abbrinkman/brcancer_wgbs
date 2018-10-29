@@ -50,7 +50,7 @@ plotFunc <- function(GENE, PMD) {
     
 }
 
-pdf("PMDmeth_vs_DNMTs.pdf") ##### Supplemental Figure 1D #####
+pdf("PMDmeth_vs_DNMTs.pdf") #### Supplemental Figure 1D ####
 par(mfrow=c(3,4), mar=c(5,4,5,2))
 sapply(1:length(genes), function(x) {plotFunc(x, "PMD_meth_wgbs")})
 dev.off()

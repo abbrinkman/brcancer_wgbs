@@ -143,5 +143,5 @@ if (strong.enhancers) {
 } else {
   pdfname <- paste0("boxplots_meth_genomic_elements_perCpG_prom", prom.size, "_allEnh_in_out_PMDs.pdf")
 }
-ggsave(p1, file=pdfname, height=4.5, width=7, scale=0.5) ##### Figure 2H ##### (using strong enhancers)
+ggsave(p1, file=pdfname, height=4.5, width=7, scale=0.5) #### Figure 2H #### (using strong enhancers)
 

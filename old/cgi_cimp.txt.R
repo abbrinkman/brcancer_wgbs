@@ -48,7 +48,7 @@ getCIMPvalue_CGIinPMDs <- function(pd, hyper.min) { # hyper.min: minimal CGI met
 pat.cimp <- sapply(as.character(c(0.2, 0.25, 0.3, 0.4)), function(x) {
     as.data.frame(t(sapply(pat, getCIMPvalue_CGIinPMDs, as.numeric(x))))}, USE.NAMES=T, simplify=F)
 
-pdf("scatterplots_CIMP_vs_CGI-PMDs.pdf") ##### Figure 3F #####
+pdf("scatterplots_CIMP_vs_CGI-PMDs.pdf") #### Figure 3D ####
 par(mfrow=c(3,3), mar=c(5,5,4,2))
 lapply(names(pat.cimp), function(x) {
   plot(pat.cimp[[x]]$cimp ~ pat.cimp[[x]]$cgi.in.pmd, xlab=" fraction CGIs in PMDs", 
@@ -84,7 +84,7 @@ colnames(cgi.pmdfreq.suppl) <- c("chr","start","end","PMD_frequency")
 wb <- createWorkbook()
 addWorksheet(wb, "CpG island PMD frequency")
 writeData(wb, sheet="CpG island PMD frequency", x=cgi.pmdfreq.suppl)
-saveWorkbook(wb, file="cgi.pmdfreq.suppl.xlsx", overwrite=T) ##### Supplemental Table 2 #####
+saveWorkbook(wb, file="cgi.pmdfreq.suppl.xlsx", overwrite=T) #### Supplemental Table 2 ####
 
 
 # mean CGI methylation
@@ -107,5 +107,5 @@ p2.1 <- ggplot(as.data.frame(mcols(cgi.1)), aes(pmd.freq.bin, cgi.sd)) +
              axis.text.x=element_text(angle=45, hjust=1, vjust=1)) +
         ylab("StDev CGI meth") +
         xlab("PMD frequency")
-ggsave(p2.1, file="boxplot_StDev_CGImeth_inOutPMDs_noOutliers.pdf", width=4, height=2.5, scale=1) ##### Figure 3E #####
+ggsave(p2.1, file="boxplot_StDev_CGImeth_inOutPMDs_noOutliers.pdf", width=4, height=2.5, scale=1) #### Figure 3E ####
 

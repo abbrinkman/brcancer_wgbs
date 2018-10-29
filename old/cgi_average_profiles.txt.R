@@ -190,6 +190,6 @@ p3 <- ggplot(d4[d4$dist >= -4000 & d4$dist <= 800,], aes(dist, median)) +
       theme_classic() +
       theme(axis.text=element_text(color="black"), axis.ticks=element_line(color="black"),
           axis.text.x=element_text(angle=45, hjust=1, vjust=1))
-ggsave(p3, file="ribbonplot_CGImeth_InOutPMD_1.pdf", height=3.3, width=7, scale=0.55) ##### Figure 3C #####
+ggsave(p3, file="ribbonplot_CGImeth_InOutPMD_1.pdf", height=3.3, width=7, scale=0.55) #### Figure 3C ####
 
 

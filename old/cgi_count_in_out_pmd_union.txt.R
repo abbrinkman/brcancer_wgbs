@@ -27,6 +27,6 @@ p <- ggplot(data.frame("PMD"=cgi$in.pmd), aes(PMD)) +
      scale_fill_manual(values=c("out"="white","in"="red")) +
      theme_classic() + 
      theme(axis.text=element_text(color="black"), axis.ticks=element_line(color="black"))
-ggsave(p, file="CGIs_in_out_PMDs.pdf", height=3, width=2.8, scale=0.8) ##### Figure 3D #####
+ggsave(p, file="CGIs_in_out_PMDs.pdf", height=3, width=2.8, scale=0.8) #### Supplemental Figure 4C ####
 
 

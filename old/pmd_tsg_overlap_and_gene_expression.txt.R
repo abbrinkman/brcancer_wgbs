@@ -99,7 +99,7 @@ d.frac <- t(apply(d.counts, 1, function(x) {x/sum(x)}))
 
 
 # plot these TSG counts
-pdf("histograms_TSG_driver_fractions_vs_PMDfreq_Census.pdf", height=6, width=6) ##### Figure 3K #####
+pdf("histograms_TSG_driver_fractions_vs_PMDfreq_Census.pdf", height=6, width=6) #### Figure 3J ####
 par(mfrow=c(3,2), mar=c(5,4,3,0))
 barplot(d.frac, beside=T, col=c("darkgreen","red","orange", "brown"), ylim=c(0,1),
     names.arg=rep("", ncol(d.frac)), ylab="gene fraction", xlab="PMD frequency", border=NA, 
@@ -256,7 +256,7 @@ p1 <- ggplot(d3[c(d3$tsg=="yes" | d3$tsg.breast=="yes" | d3$driv.breast=="yes") 
       theme(axis.text.x=element_text(angle=45, hjust=1, vjust=1), axis.text=element_text(color="black")) +
       ylab("fold change (log2)") +
       xlab("gene")
-ggsave(p1, file="barplot_expression_TSGs_in_out_PMDs_all.pdf", width=18, height=8, scale=0.4) ##### Supplemental Figure 7A ##### 
+ggsave(p1, file="barplot_expression_TSGs_in_out_PMDs_all.pdf", width=18, height=8, scale=0.4) #### Supplemental Figure 5A #### 
 
 
 # add other features to the data frame with mean gene expression changes
@@ -310,7 +310,7 @@ p2.1 <- ggplot(d3[d3$prom.in.cgi,], aes(pmd.freq.bin, in.out)) +
              axis.text.x=element_text(angle=45, hjust=1, vjust=1)) +
         ylab("fold change inside/outside PMDs (log2 FPKM)") +
         xlab("PMD frequency")
-ggsave(p2.1, file="fold_change_inOutPMDs_CGIpromGenes.pdf", width=4, height=2.5, scale=1) ##### Figure 3H #####
+ggsave(p2.1, file="fold_change_inOutPMDs_CGIpromGenes.pdf", width=4, height=2.5, scale=1) #### Figure 3G ####
 
 # plot expression change (in/out PMDs), by PMDfreq bin, non-CGI-promoter genes
 p2.2 <- ggplot(d3[!d3$prom.in.cgi,], aes(pmd.freq.bin, in.out)) +
@@ -323,7 +323,7 @@ p2.2 <- ggplot(d3[!d3$prom.in.cgi,], aes(pmd.freq.bin, in.out)) +
              axis.text.x=element_text(angle=45, hjust=1, vjust=1)) +
         ylab("fold change inside/outside PMDs (log2 FPKM)") +
         xlab("PMD frequency")
-ggsave(p2.2, file="fold_change_inOutPMDs_nonCGIpromGenes.pdf", width=4, height=2.5, scale=1) ##### Supplemental Figure 6A #####
+ggsave(p2.2, file="fold_change_inOutPMDs_nonCGIpromGenes.pdf", width=4, height=2.5, scale=1) #### Supplemental Figure 4A ####
 
 
 # for the affected genes, what is then the correlation DNAme vs. expression?
@@ -375,7 +375,7 @@ p3 <- ggplot(d6, aes(rank, R)) +
       geom_hline(yintercept = 0) +
       theme_classic() +
       ylab("Pearson R CGImeth vs. expr.")
-ggsave(p3, file="correlation_inOutPMDs_allGenes_vs_TSGs.pdf", height=3, width=4, scale=1.5) ##### Supplemental Figure 7C #####
+ggsave(p3, file="correlation_inOutPMDs_allGenes_vs_TSGs.pdf", height=3, width=4, scale=1.5) #### Supplemental Figure 5C ####
 
 
 ##################################################################################
@@ -395,7 +395,7 @@ in.out.down.pvals <- sapply(in.out.down, function(x) {
     wilcox.test(as.numeric(l1$fpkm[l1$tsg$Name==x,]) ~ l1$pmd[l1$tsg$Name==x])$p.value})
 
 write.table(in.out.down, quote=F, col.names=F, row.names=F, file=paste0("in.out.down_", most.down, ".txt"))
-write.xlsx(in.out.down, file=paste0("in.out.down_", most.down, ".xlsx")) ##### Supplemental Table 3 #####
+write.xlsx(in.out.down, file=paste0("in.out.down_", most.down, ".xlsx")) #### Supplemental Table 3 ####
 
 pdf(paste0("boxplots_in.out.down.", most.down, "fold.p0.05.pdf"))
 par(mfrow=c(3,3))
@@ -446,7 +446,7 @@ gs.stats <- do.call(rbind, gs.stats)
 gs.stats$cutoff <- sapply(strsplit(rownames(gs.stats), "\\."), function(x) {paste(x[-length(x)], collapse=".")})
 rownames(gs.stats) <- NULL
 
-pdf("barplots_GSEA_in.out.down.pdf", height=9, width=3) ##### Supplemental Figure 8A #####
+pdf("barplots_GSEA_in.out.down.pdf", height=9, width=3) #### Supplemental Figure 6A ####
 for ( i in unique(gs.stats$cutoff)) {
    tmp <- gs.stats[gs.stats$cutoff==i, c("fdr","term")]
    tmp <- tmp[complete.cases(tmp),]
@@ -493,5 +493,5 @@ pdf(paste0("boxplot_ranks_in.out.down.fpkm_fold", most.down, "_2groups.pdf"))
 par(mfrow=c(2,2))
 boxplot(in.out.down.fpkm.ranks$median ~ in.out.down.fpkm.ranks$cluster, ylab="median expression")
 dev.off()
-system(paste0("./survival.R -i ranks_in.out.down.fpkm_fold", most.down, "_2groups.xlsx")) ##### Supplemental Figure 8C #####
+system(paste0("./survival.R -i ranks_in.out.down.fpkm_fold", most.down, "_2groups.xlsx")) #### Supplemental Figure 6C ####
 

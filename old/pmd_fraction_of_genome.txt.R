@@ -25,12 +25,11 @@ pmds.bases <- sapply(colnames(mcols(pmds.m))[grep("^PD", colnames(mcols(pmds.m))
 pmds.frac <- pmds.bases/3.2e09
 
 # boxplot/stripchart PMD bases as fraction of the genome
-pdf("boxplot_PMD_bases_per_patient.pdf") ##### Figure 2A #####
+pdf("boxplot_PMD_bases_per_patient.pdf") #### Figure 2A ####
 par(mfrow=c(3,4), mar=c(5,5,4,0))
 boxplot(pmds.frac, boxwex=0.5, names="patients", ylab="fraction of genome\n covered by PMDs")
 stripchart(pmds.frac, vertical=T, pch=1, col="red", method="jitter",add=T)
 dev.off()
-# this code was also used for ##### Supplemental Figure 4B #####
 
 # determine PMD frequency: the number of patients in which a genomic regions is (inside) a PMD
 patient.cols <- grep("^PD", colnames(mcols(pmds.m)))
@@ -44,10 +43,8 @@ pmds.freq.bases <- sapply(as.character(unique(pmds.m$pmd.freq)[order(unique(pmds
 pmds.freq.frac <- pmds.freq.bases/3.2e09
 
 # dotplot PMD bases (fraction of genome) as a function of PMD frequency
-pdf("dotplot_PMD_bases_vs_PMD_frequency.pdf") ##### Figure 2B #####
+pdf("dotplot_PMD_bases_vs_PMD_frequency.pdf") #### Figure 2B ####
 par(mfrow=c(3,3), mar=c(5,5,4,0))
 plot(pmds.freq.frac, pch=20, col="red", xlab= "PMD frequency\n(number of tumors)", 
     ylab="fraction of genome\ncovered by common PMDs")
 dev.off()
-# this code was also used for ##### Supplemental Figure 4C #####
-

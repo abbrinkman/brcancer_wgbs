@@ -72,7 +72,7 @@ l4 <- lapply(names(l3), function(X) {data.frame("dist"=distances, "value"=scale(
     "assay"=rep(X, length(distances)))})
 names(l4) <- as.character(unlist(lapply(l4, function(X) {X$assay[1]})))
 
-# lineplot for each feature (to be formatted into a singe figure) ##### Figure 2D #####
+# lineplot for each feature (to be formatted into a singe figure) #### Figure 2D ####
 plotLines <- function(TERM1, TERM2, TERM3) {
   c1 <- grepl(TERM1, names(l4), ignore.case=T)
   c2 <- grepl(TERM2, names(l4), ignore.case=T)

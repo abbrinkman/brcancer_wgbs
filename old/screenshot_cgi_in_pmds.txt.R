@@ -104,6 +104,6 @@ CGImeth_in_PMDs_screenshot <- function(CHR, START, END) {
     dev.off()
   }
 }
-CGImeth_in_PMDs_screenshot("chr8",23233438, 25343262) ##### Figure 3A #####
+CGImeth_in_PMDs_screenshot("chr8",23233438, 25343262) #### Figure 3A ####
 
 

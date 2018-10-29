@@ -49,7 +49,7 @@ bound.freq.ran <- sapply(freqs, function(X) {sum(bound.sums.ran==X)})
 m.b <- rbind(bound.freq, bound.freq.ran)
 
 # plot histograms of PMD boundary tiles
-pdf(paste0("histograms_PMD_boundaries-tiles", tile.size, ".pdf")) ##### Figure 2C #####
+pdf(paste0("histograms_PMD_boundaries-tiles", tile.size, ".pdf")) #### Figure 2C ####
 par(mfrow=c(2,1), mar=c(5,5,4,2))
 barplot(m.b/1000, beside=T, col=c("red","black"), border=F, names.arg=freqs,
     xlab="frequency (#cases)",
