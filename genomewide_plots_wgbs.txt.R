@@ -114,8 +114,9 @@ p <- ggplot(d6, aes(pos, patient.hc)) +
       panel.border=element_blank()) +
   xlab("") +
   ylab("patient")
-ggsave(p, file="tilemaps_PMDmeth_clustered.png", height=4, width=10) #### Figure 1A / Supplemental Figure 2A ####
+ggsave(p, file="tilemaps_PMDmeth_clustered.png", height=4, width=10) #### Figure 1A ####
 ggsave(p, file="tilemaps_PMDmeth_clustered.pdf", height=4, width=10)
+# this code was also used for #### Supplemental Figure 2A ####
 
 # function for plotting only one chromosome (clustered, as above)
 plotPMDmeth_chromosome <- function(x) {
@@ -134,8 +135,8 @@ plotPMDmeth_chromosome <- function(x) {
   ggsave(p, file=paste0("tilemaps_PMDmeth_per_chromosome/tilemaps_PMDmeth_clustered_", x, ".pdf"), height=4, width=10)
 }
 system("mkdir -p tilemaps_PMDmeth_per_chromosome")
-sapply(unique(d6$chr), plotPMDmeth_chromosome) #### Figure 1B / Supplemental Figure 2B ####
-
+sapply(unique(d6$chr), plotPMDmeth_chromosome) #### Figure 1B ####
+# this code was also used for #### Supplemental Figure 2B ####
 
 # check significance of association between ER and overall PMDmeth within the tiles
 source("~/tools/BASIS_common_functions.txt.R")
