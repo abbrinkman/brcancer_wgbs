@@ -84,7 +84,7 @@ colnames(cgi.pmdfreq.suppl) <- c("chr","start","end","PMD_frequency")
 wb <- createWorkbook()
 addWorksheet(wb, "CpG island PMD frequency")
 writeData(wb, sheet="CpG island PMD frequency", x=cgi.pmdfreq.suppl)
-saveWorkbook(wb, file="cgi.pmdfreq.suppl.xlsx", overwrite=T) ##### Supplemental Table 2 #####
+saveWorkbook(wb, file="cgi.pmdfreq.suppl.xlsx", overwrite=T) ##### Supplemental Table 3 #####
 
 
 # mean CGI methylation

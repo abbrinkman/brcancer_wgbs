@@ -395,7 +395,7 @@ in.out.down.pvals <- sapply(in.out.down, function(x) {
     wilcox.test(as.numeric(l1$fpkm[l1$tsg$Name==x,]) ~ l1$pmd[l1$tsg$Name==x])$p.value})
 
 write.table(in.out.down, quote=F, col.names=F, row.names=F, file=paste0("in.out.down_", most.down, ".txt"))
-write.xlsx(in.out.down, file=paste0("in.out.down_", most.down, ".xlsx")) ##### Supplemental Table 3 #####
+write.xlsx(in.out.down, file=paste0("in.out.down_", most.down, ".xlsx")) ##### Supplemental Table 4 #####
 
 pdf(paste0("boxplots_in.out.down.", most.down, "fold.p0.05.pdf"))
 par(mfrow=c(3,3))
