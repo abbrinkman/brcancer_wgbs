@@ -56,5 +56,5 @@ Supplemental Figure 8B	->	line_plots_wgbs.txt.R
 Supplemental Figure 8C	->	pmd_tsg_overlap_and_gene_expression.txt.R
 Supplemental Figure 9A	->	pmd_methylation_levels_tumors_normals.txt.R
 Supplemental Figure 9B	->	cgi_methylation_levels_in_out_pmds_other_cancers.txt.R
-Supplemental Table 2	->	cgi_cimp.txt.R
-Supplemental Table 3	->	pmd_tsg_overlap_and_gene_expression.txt.R
+Supplemental Table 3	->	cgi_cimp.txt.R
+Supplemental Table 4	->	pmd_tsg_overlap_and_gene_expression.txt.R
